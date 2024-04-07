@@ -4,11 +4,12 @@ import { Dialog, Box, Typography, List, ListItem, styled } from "@mui/material";
 
 import { qrCodeImage } from "../../constants/data.js";
 
+import { GoogleLogin } from "@react-oauth/google";
 
-import {GoogleLogin } from '@react-oauth/google';
-
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 import { Context } from "../../index.js";
+import { addUser } from "../services/Api.js";
+import axios from "axios";
 
 const Components = styled(Box)`
   display: flex;
@@ -27,24 +28,20 @@ const Title = styled(Typography)`
 `;
 
 const StyleList = styled(List)`
-
-    & > li {
-      padding: 0;
-      margin-top: 15px;
-      font-size: 20px;
-      line-hegiht: 28px;
-      color: #4a4a4a;
-    }
-
-
+  & > li {
+    padding: 0;
+    margin-top: 15px;
+    font-size: 20px;
+    line-hegiht: 28px;
+    color: #4a4a4a;
+  }
 `;
 
-const QRCode = styled('img')({
+const QRCode = styled("img")({
   height: 264,
   width: 264,
-  margin: '56px 0 56px 56px'
+  margin: "56px 0 56px 56px",
 });
-
 
 const dialogStyle = {
   height: "96%",
@@ -54,29 +51,30 @@ const dialogStyle = {
   maxWidth: "100%",
   boxShadow: "none",
   overflow: "hidden",
-  backgroundColor :'none'   
+  backgroundColor: "none",
 };
 
 const LoginDialog = () => {
+  const { setIsAuth } = useContext(Context);
 
 
-    const {setIsAuth} = useContext(Context);
-
-    const onLoginSuccess = (res)=>{
-        const decode  = jwtDecode(res.credential);
-        // console.log(decode);
-        setIsAuth(decode);
-    }
-    const onLoginError = (res)=>{
-console.log("Login Failed " , res);
-    }
+  ///onlogin success 
 
 
+  const onLoginSuccess = async (res) => {
+      const decoded = jwtDecode(res.credential);
+      setIsAuth(decoded);
+      await addUser(decoded); // API to create a User
+  };
+
+
+
+  const onLoginError = (res) => {
+    console.log("Login Failed ", res);
+  };
 
   return (
-    <Dialog open={true} PaperProps={{ sx: dialogStyle }}  
-    hideBackdrop={true}
-    >
+    <Dialog open={true} PaperProps={{ sx: dialogStyle }} hideBackdrop={true}>
       <Components>
         <Container>
           <Title> Use Whatsapp on your computer: </Title>
@@ -90,21 +88,18 @@ console.log("Login Failed " , res);
           </StyleList>
         </Container>
 
-        <Box style={{position: 'relative'}}>
+        <Box style={{ position: "relative" }}>
           <QRCode src={qrCodeImage} alt="qr code" />
-        
-          <Box style={{
-            position: 'absolute',
-            top: '45%', 
-            transform: 'translateX(50%)' 
-          }}>
-          <GoogleLogin
-          onSuccess={onLoginSuccess}
-          onError={onLoginError}
-          
-          />
+
+          <Box
+            style={{
+              position: "absolute",
+              top: "45%",
+              transform: "translateX(50%)",
+            }}
+          >
+            <GoogleLogin onSuccess={onLoginSuccess} onError={onLoginError} />
           </Box>
-       
         </Box>
       </Components>
     </Dialog>

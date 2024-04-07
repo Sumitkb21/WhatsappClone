@@ -2,6 +2,7 @@ import React from 'react'
 import  {Box} from '@mui/material'
 import Header from './header'
 import Search from './Search'
+import Conversations from './Conversations'
 
 
 const Menu = () => {
@@ -9,6 +10,7 @@ const Menu = () => {
     <Box>
       <Header/>
       <Search/>
+      <Conversations/>
     </Box>
   )
 }

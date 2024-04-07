@@ -2,6 +2,7 @@ import React from "react";
 import { Dialog, Box, styled } from "@mui/material";
 import Menu from "./menu/Menu";
 import Emptychat from "./chatContent/Emptychat";
+import ChatBox from "./chatContent/ChatBox";
 
 
 
@@ -51,7 +52,8 @@ const ChatDialog = () => {
       </LeftComponent>
 
       <RightComponent>
-        <Emptychat/>
+        {/* <Emptychat/> */}
+        <ChatBox/>
       </RightComponent>
 
       </Component>
