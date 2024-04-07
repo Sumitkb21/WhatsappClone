@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import  {Box , styled} from '@mui/material'
 import { Context } from '../../..'
 import HeaderMenu from './HeaderMenu';
@@ -6,6 +6,7 @@ import HeaderMenu from './HeaderMenu';
 
 
 import {Chat as MessageIcon , MoreVert} from '@mui/icons-material';
+import InfoDrawer from '../../drawer/InfoDrawer';
 
 
 
@@ -42,20 +43,25 @@ const Image = styled('img')({
 
 
 const Header = () => {
+    const [openDrawer , setOpenDrawer] = useState(false);
+
+    const Toggle =()=>{
+        setOpenDrawer(true);
+    }
 
     const {isAuth} = useContext(Context);
 
   return (
     <>
     <Component>
-    <Image  src={isAuth.picture}  alt="dp"/>
+    <Image  src={isAuth.picture}  alt="dp"  onClick={Toggle}/>
     <Wrapper>
         <MessageIcon/>
-        <HeaderMenu/>
+        <HeaderMenu setOpenDrawer={setOpenDrawer}/>
     </Wrapper>
-     
-   
     </Component>
+
+    <InfoDrawer open={openDrawer} setOpen={setOpenDrawer} />
     </>
 
   )
