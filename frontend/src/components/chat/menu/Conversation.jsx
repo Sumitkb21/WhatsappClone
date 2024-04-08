@@ -1,42 +1,45 @@
-import React from 'react'
-import {Box , Typography , styled} from  "@mui/material"
-
+import React, { useContext } from "react";
+import { Box, Typography, styled } from "@mui/material";
+import { Context } from "../../..";
+import { setConversation } from "../../services/Api";
 
 const Component = styled(Box)`
   display: flex;
   height: 3rem;
-  padding : 13px 0;
-  cursor : pointer;
+  padding: 13px 0;
+  cursor: pointer;
+`;
 
-`; 
+const Image = styled("img")({
+  width: 50,
+  height: 50,
+  borderRadius: "50%",
+  padding: "0 14px",
+});
 
-
-const Image =  styled('img')({
-    width: 50,
-    height:50,
-    borderRadius:'50%',
-    padding : '0 14px'
+const Conversation = ({ user }) => {
+    const {person , setPerson , isAuth}  = useContext(Context);
     
+    
+    const getuser  = async() =>{
+      setPerson(user);
+      await setConversation({senderId:isAuth.sub , receiverId: user.sub});
+    } 
+ 
+    return (
 
-})
 
-
-const Conversation = ({user}) => {
-  return (
-    <Component>
+    <Component   onClick={()=>getuser(user)}>
+      <Box>
+        <Image src={user.picture} alt="dp" />
+      </Box>
+      <Box>
         <Box>
-
-       <Image  src={user.picture} alt="dp" />
+          <Typography>{user.name} </Typography>
         </Box>
-        <Box>
-            <Box>
-           <Typography>{user.name} </Typography>     
-            </Box>
-
-        </Box>
-
+      </Box>
     </Component>
-  )
-}
+  );
+};
 
-export default Conversation
+export default Conversation;

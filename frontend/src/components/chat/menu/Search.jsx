@@ -47,15 +47,17 @@ const InputField = styled(InputBase)`
 
 
 
-const Search = () => {
+const Search = ({setText}) => {
   return (
     <Component>
       <Wrapper>
         <Icon>
-          <SearchIcon
+          <SearchIcon 
            />
         </Icon>
-        <InputField placeholder="Search..."/>
+        <InputField placeholder="Search..."
+        onChange={(e)=>setText(e.target.value)}
+        />
       </Wrapper>
     </Component>
   );

@@ -11,10 +11,12 @@ export const Context = createContext();
 const AppWrapper = ()=>{
   
   const [isAuth , setIsAuth] = useState();
+  const [person ,setPerson] = useState({});
+
   return (
     <Context.Provider
     value={{
-      isAuth , setIsAuth
+      isAuth , setIsAuth , person , setPerson
     }}
     >
 

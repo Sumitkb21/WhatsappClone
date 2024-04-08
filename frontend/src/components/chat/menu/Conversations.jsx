@@ -21,7 +21,7 @@ const StyledDivider = styled(Divider)`
 
 
 
-const Conversations = () => {
+const Conversations = ({text}) => {
 
 
      const {isAuth} = useContext(Context);
@@ -32,12 +32,12 @@ const Conversations = () => {
         const fetchData = async ()=>{
             let allUser = await getUsers();
             console.log(allUser);
-
-            setUsers(allUser);
+            const filteredData = allUser.filter(user=>user.name.toLowerCase().includes(text.toLowerCase()));
+            setUsers(filteredData);
         }
 
         fetchData();
-  } , []);
+  } , [text]);
   
     return (
         <Component>
