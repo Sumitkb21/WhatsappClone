@@ -13,5 +13,10 @@ Devleoped a Whatsapp clone MERN stack web Application
 ![image](https://github.com/Sumitkb21/WhatsappClone/assets/101947627/0b52ed09-f942-4a19-a102-24bcbedfa89d)
 ### Search Functionality:
 ![image](https://github.com/Sumitkb21/WhatsappClone/assets/101947627/44c846cb-dad1-4242-a703-60fd4f8444af)
-
-
+####changes you need to made to run this 
+- add client ID of google OAuth in /frontend/app.js
+- add config.env file , which contains 
+PORT = 
+MONGO_URI = ""
+FRONTEND_URL = ""
+  
