@@ -24,7 +24,7 @@ To run the application successfully, please follow the steps below.
 - Insert your Google OAuth Client ID.
 
 ### 2. Create a Configuration File
-- In the root directory, create a file named `config.env`.
+- In the /backend/data directory, create a file named `config.env`.
 - Add the following environment variables to the file:
 
   ```plaintext
